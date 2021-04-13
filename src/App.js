@@ -1,7 +1,7 @@
 import './App.css';
-import React, { Component, lazy, Suspense } from 'react';
+import React, { Component, lazy, Suspense, useEffect } from 'react';
 import { Switch } from 'react-router-dom';
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import AppBar from './components/AppBAr/AppBar';
 import Container from './components/Container/Container';
 import Loader from './components/Loader';
@@ -29,52 +29,58 @@ const NotFoundViews = lazy(() =>
   import('./views/NotFoundView' /* webpackChunkName: "notFoud-page" */),
 );
 
-class App extends Component {
-  componentDidMount() {
-    this.props.onGetCurretnUser();
-  }
-  render() {
-    const { home, contacts, register, login } = routes;
-    const { error } = this.props;
+export default function App() {
+  const { home, contacts, register, login } = routes;
+  const dispatch = useDispatch();
+  const error = useSelector(userAuthSelectors.getError);
 
-    return (
-      <div className="App">
-        <Container>
-          <AppBar />
-          {Boolean(error) && <ErrorMessage error={error} />}
-          <Suspense fallback={<Loader />}>
-            <Switch>
-              <PublicRoute exact path={home} component={HomeView} />
-              <PrivateRoute
-                path={contacts}
-                redirectTo="/login"
-                component={Phonebook}
-              />
-              <PublicRoute
-                path={register}
-                restricted
-                redirectTo="/"
-                component={RegisterView}
-              />
-              <PublicRoute
-                path={login}
-                restricted
-                redirectTo="/contacts"
-                component={LoginView}
-              />
-              <PublicRoute component={NotFoundViews} />
-            </Switch>
-          </Suspense>
-        </Container>
-      </div>
-    );
-  }
+  useEffect(() => {
+    dispatch(userAuthOperations.getCurrentUser());
+  }, [dispatch]);
+
+  return (
+    <div className="App">
+      <Container>
+        <AppBar />
+        {Boolean(error) && <ErrorMessage error={error} />}
+        <Suspense fallback={<Loader />}>
+          <Switch>
+            <PublicRoute exact path={home} component={HomeView} />
+            <PrivateRoute
+              path={contacts}
+              redirectTo="/login"
+              component={Phonebook}
+            />
+            <PublicRoute
+              path={register}
+              restricted
+              redirectTo="/"
+              component={RegisterView}
+            />
+            <PublicRoute
+              path={login}
+              restricted
+              redirectTo="/contacts"
+              component={LoginView}
+            />
+            <PrivateRoute
+              path="/goit-react-hw-09-phonebook"
+              redirectTo="/"
+              component={HomeView}
+            />
+            <PublicRoute component={NotFoundViews} />
+          </Switch>
+        </Suspense>
+      </Container>
+    </div>
+  );
 }
-const mapStateToProps = state => ({
-  error: userAuthSelectors.getError(state),
-});
-const mapDispatchToProps = {
-  onGetCurretnUser: userAuthOperations.getCurrentUser,
-};
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+// const mapStateToProps = state => ({
+//   error: userAuthSelectors.getError(state),
+// });
+// const mapDispatchToProps = {
+//   onGetCurretnUser: userAuthOperations.getCurrentUser,
+// };
+
+// export default connect(mapStateToProps, mapDispatchToProps)(App);

@@ -16,11 +16,6 @@ const getCurrentUserRequest = createAction('auth/getCurrentUserRequest');
 const getCurrentUserSuccess = createAction('auth/getCurrentUserSuccess');
 const getCurrentUserError = createAction('auth/getCurrentUserError');
 
-const addValue = (name, value) => ({
-  type: `auth/add${name}`,
-  payload: value,
-});
-const resetValue = createAction('values/reset');
 const resetError = createAction('error/reset');
 
 export default {
@@ -36,7 +31,5 @@ export default {
   getCurrentUserRequest,
   getCurrentUserSuccess,
   getCurrentUserError,
-  addValue,
-  resetValue,
   resetError,
 };

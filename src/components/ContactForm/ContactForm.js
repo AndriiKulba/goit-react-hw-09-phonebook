@@ -23,11 +23,9 @@ class ContactForm extends Component {
 
     this.props.resetValue('');
   };
-  clic = () => {
-    this.props.resetValue(null);
-  };
+
   render() {
-    const { name, number, handleChange, error, resetValue } = this.props;
+    const { name, number, handleChange } = this.props;
 
     return (
       <div className={s.phonebook}>

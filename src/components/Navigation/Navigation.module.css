@@ -1,9 +1,14 @@
+.home_link {
+  align-items: center;
+}
 .link {
+  width: 30px;
   height: 30px;
   position: relative;
   display: inline-block;
   text-decoration: none;
   padding: 2px;
+  margin-right: 5px;
   font-weight: 500;
   color: #2a363b;
   font-size: 18px;

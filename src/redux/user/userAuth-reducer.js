@@ -45,27 +45,10 @@ const isLogin = createReducer(null, {
   [userAuthActions.getCurrentUserError]: () => false,
   [userAuthActions.logoutSuccess]: () => false,
 });
-const name = createReducer('', {
-  'auth/addname': (_, { payload }) => payload,
-  [userAuthActions.resetValue]: (_, { payload }) => payload,
-});
-
-const email = createReducer('', {
-  'auth/addemail': (_, { payload }) => payload,
-  [userAuthActions.resetValue]: (_, { payload }) => payload,
-});
-
-const password = createReducer('', {
-  'auth/addpassword': (_, { payload }) => payload,
-  [userAuthActions.resetValue]: (_, { payload }) => payload,
-});
 
 export default combineReducers({
   user,
   token,
   error,
   isLogin,
-  name,
-  email,
-  password,
 });
