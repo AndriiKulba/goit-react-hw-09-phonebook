@@ -1,48 +1,37 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import Icon from '@material-ui/core/Icon';
 import grey from '@material-ui/core/colors/grey';
 import s from './Filter.module.css';
 import { v4 as uuidv4 } from 'uuid';
-import { connect } from 'react-redux';
-import { selectors, addValue, resetValue } from '../../redux/contacts';
+import { selectors, addFilter } from '../../redux/contacts';
 
 const filterInputID = uuidv4();
-class Filter extends Component {
-  render() {
-    const { filter, handleChange, resetValue } = this.props;
 
-    return (
-      <label htmlFor={filterInputID} className={s.phonebook__filter}>
-        <button className={s.phonebook__btn} onClick={() => resetValue('')}>
-          <Icon style={{ color: grey[800], fontSize: 20 }}>search</Icon>
-        </button>
-        <input
-          type="text"
-          name="filter"
-          value={filter}
-          id={filterInputID}
-          onChange={handleChange}
-          placeholder=" Find contacts by name"
-        />
-      </label>
-    );
-  }
+export default function Filter() {
+  const dispatch = useDispatch();
+  const filter = useSelector(selectors.getFilter);
+  const handleChange = e => {
+    const { value } = e.target;
+    dispatch(addFilter(value));
+  };
+  const resetFilter = () => {
+    dispatch(addFilter(''));
+  };
+
+  return (
+    <label htmlFor={filterInputID} className={s.phonebook__filter}>
+      <button className={s.phonebook__btn} onClick={resetFilter}>
+        <Icon style={{ color: grey[800], fontSize: 20 }}>search</Icon>
+      </button>
+      <input
+        type="text"
+        name="filter"
+        value={filter}
+        id={filterInputID}
+        onChange={handleChange}
+        placeholder=" Find contacts by name"
+      />
+    </label>
+  );
 }
-
-Filter.defaultProps = { filter: '' };
-Filter.propTypes = {
-  filter: PropTypes.string,
-  handleChange: PropTypes.func.isRequired,
-};
-
-const mapStateToProps = state => ({
-  filter: selectors.getFilter(state),
-});
-
-const mapDispatchToProps = dispatch => ({
-  handleChange: e => dispatch(addValue(e.target.name, e.target.value)),
-  resetValue: value => dispatch(resetValue(value)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Filter);

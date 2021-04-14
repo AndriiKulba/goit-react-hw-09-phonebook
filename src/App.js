@@ -1,5 +1,5 @@
 import './App.css';
-import React, { Component, lazy, Suspense, useEffect } from 'react';
+import React, { lazy, Suspense, useEffect } from 'react';
 import { Switch } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import AppBar from './components/AppBAr/AppBar';

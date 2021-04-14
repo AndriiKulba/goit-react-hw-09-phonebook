@@ -20,8 +20,5 @@ export const deleteContactsSuccess = createAction(
 );
 export const deleteContactsError = createAction('contacts/deleteContactsError');
 
-export const addValue = (name, value) => ({
-  type: `values/add${name}`,
-  payload: value,
-});
+export const addFilter = createAction('values/addfilter');
 export const resetValue = createAction('values/reset');

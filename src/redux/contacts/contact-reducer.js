@@ -10,8 +10,7 @@ import {
   deleteContactsRequest,
   deleteContactsSuccess,
   deleteContactsError,
-  addValue,
-  resetValue,
+  addFilter,
 } from './contact-actions';
 
 const initialState = [];
@@ -39,26 +38,22 @@ const loading = createReducer(false, {
 //   [addContactsError]: setError,
 //   [deleteContactsError]: setError,
 // });
-const name = createReducer('', {
-  'values/addname': (_, { payload }) => payload,
-  [resetValue]: (_, { payload }) => payload,
-});
+// const name = createReducer('', {
+//   'values/addname': (_, { payload }) => payload,
+//   [resetValue]: (_, { payload }) => payload,
+// });
 
-const number = createReducer('', {
-  'values/addnumber': (_, { payload }) => payload,
-  [resetValue]: (_, { payload }) => payload,
-});
+// const number = createReducer('', {
+//   'values/addnumber': (_, { payload }) => payload,
+//   [resetValue]: (_, { payload }) => payload,
+// });
 
 const filter = createReducer('', {
-  'values/addfilter': (_, { payload }) => payload,
-  [resetValue]: (_, { payload }) => payload,
+  [addFilter]: (_, { payload }) => payload,
 });
 
 export default combineReducers({
   contacts,
   loading,
-
-  name,
-  number,
   filter,
 });
