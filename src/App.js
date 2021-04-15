@@ -48,19 +48,19 @@ export default function App() {
             <PublicRoute exact path={home} component={HomeView} />
             <PrivateRoute
               path={contacts}
-              redirectTo="/login"
+              redirectTo="/goit-react-hw-09-phonebook/login"
               component={Phonebook}
             />
             <PublicRoute
               path={register}
               restricted
-              redirectTo="/"
+              redirectTo="/goit-react-hw-09-phonebook/"
               component={RegisterView}
             />
             <PublicRoute
               path={login}
               restricted
-              redirectTo="/contacts"
+              redirectTo="/goit-react-hw-09-phonebook/contacts"
               component={LoginView}
             />
             <PrivateRoute
