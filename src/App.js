@@ -54,7 +54,7 @@ export default function App() {
             <PublicRoute
               path={register}
               restricted
-              redirectTo="/goit-react-hw-09-phonebook/"
+              redirectTo="/goit-react-hw-09-phonebook"
               component={RegisterView}
             />
             <PublicRoute
